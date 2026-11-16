@@ -1,0 +1,285 @@
+{
+  "info": {
+    "_postman_id": "30287cc9-9c56-488c-8fd6-92a4d9f72ba0",
+    "name": "Pets API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "56402591",
+    "_collection_link": "https://go.postman.co/collection/56402591-30287cc9-9c56-488c-8fd6-92a4d9f72ba0?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "GET /pets",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3900/pets",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3900",
+          "path": [
+            "pets"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "/pets/:id - exists",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3900/pets/1",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3900",
+          "path": [
+            "pets",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "/pets/:id - does NOT exist",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3900/pets/3",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3900",
+          "path": [
+            "pets",
+            "3"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "/pets/search - with no search term",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3900/pets/search",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3900",
+          "path": [
+            "pets",
+            "search"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "/pets/search - with a name that returns no results",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3900/pets/search?name=fluffy",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3900",
+          "path": [
+            "pets",
+            "search"
+          ],
+          "query": [
+            {
+              "key": "name",
+              "value": "fluffy"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "/pets/search - with a name that returns one result",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3900/pets/search?name=growler",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3900",
+          "path": [
+            "pets",
+            "search"
+          ],
+          "query": [
+            {
+              "key": "name",
+              "value": "growler"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "/pets - Create a new pet",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"name\": \"7 OF 9\",\r\n    \"species\": \"Snake\",\r\n    \"adopted\": false\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3900/pets",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3900",
+          "path": [
+            "pets"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "/pets - Create a new pet (INVALID data)",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"name\": 7,\r\n    \"species\": \"Snake\",\r\n    \"adopted\": \"not yet\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3900/pets",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3900",
+          "path": [
+            "pets"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "/pets/:id - Update a pet's details",
+      "request": {
+        "method": "PATCH",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"name\": \"111 Testing PATCH name\",\r\n    \"species\": \"111 Only name and species should change\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3900/pets/1",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3900",
+          "path": [
+            "pets",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "/pets/:id - Replace a pet's details",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"name\": \"PUT name\",\r\n    \"species\": \"PUT species\",\r\n    \"adopted\": true\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3900/pets/2",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3900",
+          "path": [
+            "pets",
+            "2"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "/pets/:id - Replace a pet's details (MISSING DETAILS)",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"name\": \"PUT name\",\r\n    \"species\": \"PUT species\"\r\n    // \"adopted\": false,\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3900/pets/2",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3900",
+          "path": [
+            "pets",
+            "2"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
