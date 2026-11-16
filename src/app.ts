@@ -1,3 +1,4 @@
+import { Pet } from './pets/pet.types';
 import express, { type Express, type Request, type Response } from 'express';
 
 const app: Express = express();
@@ -5,7 +6,7 @@ app.use(express.json());
 
 const port: number = 3900;
 
-const pets = [
+const pets: Pet[] = [
     {
         id: 1,
         name: "Fluffy",
@@ -16,7 +17,7 @@ const pets = [
         id: 2,
         name: "Growler",
         species: "Dog",
-        adopted: false,
+        adopted: false, 
     },
 ];
 
@@ -55,7 +56,7 @@ app.post('/pets', (req: Request, res: Response) => {
     const lastPet = pets[pets.length - 1];
     const lastPetId = lastPet ? lastPet.id : 0;
     
-    const pet = {
+    const pet: Pet = {
         id: lastPetId + 1,
         name: req.body.name,
         species: req.body.species,
@@ -80,7 +81,7 @@ app.patch('/pets/:id', (req: Request, res: Response) => {
 
     // Overwrite the current pet with the old details PLUS any new details
     const currentPet = pets[petIndex];
-    const updatedPet = { 
+    const updatedPet: Pet = { 
         ...currentPet,
         name: req.body.name ?? currentPet.name,
         species: req.body.species ?? currentPet.species,
@@ -104,7 +105,7 @@ app.put('/pets/:id', (req: Request, res: Response) => {
     // TODO: validation 
 
     // Replace the current pet with the new details
-    const updatedPet = {
+    const updatedPet: Pet = {
         ...pets[petIndex], // this is "currentPet" in the patch route
         name: req.body.name,
         species: req.body.species,
