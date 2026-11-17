@@ -1,6 +1,6 @@
 import { Pet, CreatePetDto } from './pet.types';
 
-export class PetRepository {
+export class PetArrayRepository {
     private pets: Pet[] = [];
     private nextPetId = 1;
 
