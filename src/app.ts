@@ -1,4 +1,5 @@
 import { Pet } from './pets/pet.types';
+import { CreatePetSchema, UpdatePetSchema, SearchPetSchema } from './pets/pet.schema';
 import express, { type Express, type Request, type Response } from 'express';
 
 const app: Express = express();
@@ -30,10 +31,17 @@ app.get('/pets', (req: Request, res: Response) => {
 });
 
 app.get('/pets/search', (req: Request, res: Response) => {
-    const name = String(req.query.name ?? '').toLowerCase();
+    const validate = SearchPetSchema.safeParse(req.query);
+    if (!validate.success) {
+        return res.status(400).json({
+            message: "Invalid search parameters",
+            errors: validate.error.issues
+        });
+    }
+
+    const name = validate.data.name.toLowerCase();
 
     const results = pets.filter(pet => pet.name.toLowerCase() === name);
-
     res.send(results);
 });
 
@@ -51,16 +59,20 @@ app.get('/pets/:id', (req: Request, res: Response) => {
 });
 
 app.post('/pets', (req: Request, res: Response) => {
-    // TODO: Validation
+    const validate = CreatePetSchema.safeParse(req.body);
+    if (!validate.success) {
+        return res.status(400).json({
+            message: "Invalid request body",
+            validation: validate.error.issues
+        });
+    }
 
     const lastPet = pets[pets.length - 1];
     const lastPetId = lastPet ? lastPet.id : 0;
     
     const pet: Pet = {
         id: lastPetId + 1,
-        name: req.body.name,
-        species: req.body.species,
-        adopted: req.body.adopted
+        ...validate.data
     };
 
     pets.push(pet);
@@ -77,15 +89,19 @@ app.patch('/pets/:id', (req: Request, res: Response) => {
         });
     } 
 
-    // TODO: validation 
+    const validate = UpdatePetSchema.safeParse(req.body);
+    if (!validate.success) {
+        return res.status(400).json({
+            message: "Invalid request body",
+            validation: validate.error.issues
+        });
+    }
 
     // Overwrite the current pet with the old details PLUS any new details
     const currentPet = pets[petIndex];
     const updatedPet: Pet = { 
         ...currentPet,
-        name: req.body.name ?? currentPet.name,
-        species: req.body.species ?? currentPet.species,
-        adopted: req.body.adopted ?? currentPet.adopted,
+        ...validate.data
     };
 
     pets[petIndex] = updatedPet;
@@ -102,14 +118,18 @@ app.put('/pets/:id', (req: Request, res: Response) => {
         });
     } 
 
-    // TODO: validation 
+    const validate = CreatePetSchema.safeParse(req.body);
+    if (!validate.success) {
+        return res.status(400).json({
+            message: "Invalid request body",
+            validation: validate.error.issues
+        });
+    }
 
     // Replace the current pet with the new details
     const updatedPet: Pet = {
-        ...pets[petIndex], // this is "currentPet" in the patch route
-        name: req.body.name,
-        species: req.body.species,
-        adopted: req.body.adopted
+        id: pets[petIndex].id,
+        ...validate.data,
     };
 
     pets[petIndex] = updatedPet;

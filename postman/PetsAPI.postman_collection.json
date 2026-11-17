@@ -87,6 +87,32 @@
       "response": []
     },
     {
+      "name": "/pets/search - with an empty search term",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3900/pets/search?name=",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3900",
+          "path": [
+            "pets",
+            "search"
+          ],
+          "query": [
+            {
+              "key": "name",
+              "value": ""
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
       "name": "/pets/search - with a name that returns no results",
       "request": {
         "method": "GET",
@@ -173,7 +199,7 @@
         "header": [],
         "body": {
           "mode": "raw",
-          "raw": "{\r\n    \"name\": 7,\r\n    \"species\": \"Snake\",\r\n    \"adopted\": \"not yet\"\r\n}",
+          "raw": "{\r\n    \"name\": 7,\r\n    \"species\": \"\",\r\n    \"adopted\": \"not yet\"\r\n}",
           "options": {
             "raw": {
               "language": "json"
