@@ -1,6 +1,7 @@
+import { PetRepository } from './pet.repository';
 import { Pet, CreatePetDto } from './pet.types';
 
-export class PetArrayRepository {
+export class PetArrayRepository implements PetRepository {
     private pets: Pet[] = [];
     private nextPetId = 1;
 

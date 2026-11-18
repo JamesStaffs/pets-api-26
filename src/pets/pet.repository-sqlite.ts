@@ -1,7 +1,8 @@
 import Database from 'better-sqlite3';
 import { Pet, CreatePetDto } from './pet.types';
+import { PetRepository } from './pet.repository';
 
-export class PetSqliteRepository {
+export class PetSqliteRepository implements PetRepository {
     private readonly db: Database.Database
 
     constructor(private readonly dbFilePath: string) {

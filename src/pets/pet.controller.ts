@@ -1,11 +1,10 @@
 import { Request, Response } from 'express';
-import { PetArrayRepository } from './pet.repository-array';
 import { CreatePetSchema, SearchPetSchema, UpdatePetSchema } from './pet.schema';
-import { PetSqliteRepository } from './pet.repository-sqlite';
+import { PetRepository } from './pet.repository';
 
 export class PetController {
     constructor(
-        private readonly petRepository: PetSqliteRepository | PetArrayRepository
+        private readonly petRepository: PetRepository
     ) {}
 
     getAllPets = (req: Request, res: Response) => {
